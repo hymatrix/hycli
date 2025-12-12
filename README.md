@@ -49,3 +49,13 @@
 
 ## Notes
 - Dependencies used by the scaffold (e.g., `github.com/spf13/viper`, `github.com/urfave/cli/v2`, `github.com/hymatrix/hymx`) are fetched via `go mod tidy` during generation.
+
+## TODO
+- [x] Create project directories
+- [x] Initialize Golang environment
+- [x] Generate mod folder
+- [ ] Generate Module
+- [ ] Setup Redis environment
+- [ ] Run
+
+
