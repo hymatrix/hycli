@@ -7,4 +7,6 @@ type Options struct {
 	ModuleFormat string
 	VmmName      string
 	GoModule     string
+	NodeUrl      string
+	PrivateKey   string
 }
