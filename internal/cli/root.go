@@ -18,9 +18,13 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&outPath, "out", "o", ".", "Output base directory for the generated project")
 
 	rootCmd.AddCommand(newCmd)
+
 	vmmCmd.Flags().StringP("name", "n", "", "Name of the vmm")
 	vmmCmd.Flags().StringP("format", "f", "", "Module format of the vmm")
 	rootCmd.AddCommand(vmmCmd)
+
+	mountCmd.Flags().StringP("name", "n", "", "Name of the vmm")
+	rootCmd.AddCommand(mountCmd)
 }
 
 func Execute() error { return rootCmd.Execute() }
