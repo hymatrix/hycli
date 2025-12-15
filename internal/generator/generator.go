@@ -28,3 +28,16 @@ func GenerateProject(opts schema.Options) error {
 
 	return nil
 }
+
+func GenetrateVmm(opts schema.Options) error {
+	// get go module
+	goModule, err := getGoModule(opts.ProjectDir)
+	if err != nil {
+		return err
+	}
+	opts.GoModule = goModule
+	if err := genVmm(&opts); err != nil {
+		return err
+	}
+	return mount(&opts)
+}

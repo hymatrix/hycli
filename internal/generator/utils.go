@@ -1,11 +1,12 @@
 package generator
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
-	"html/template"
 	"os"
 	"os/exec"
+	"text/template"
 	"unicode"
 
 	"github.com/hymatrix/hycli/internal/templates"
@@ -60,4 +61,21 @@ func runCmd(dir string, name string, args ...string) error {
 		return fmt.Errorf("%s %v failed: %w", name, args, err)
 	}
 	return nil
+}
+
+func readLines(path string) ([]string, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	var lines []string
+	sc := bufio.NewScanner(f)
+	for sc.Scan() {
+		lines = append(lines, sc.Text())
+	}
+	if err := sc.Err(); err != nil {
+		return nil, err
+	}
+	return lines, nil
 }

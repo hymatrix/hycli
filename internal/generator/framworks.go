@@ -15,7 +15,6 @@ func genFrameworks(opts schema.Options) error {
 
 	dirs := []string{
 		filepath.Join(projectDir, "cmd"),
-		filepath.Join(projectDir, pkg),
 	}
 	for _, d := range dirs {
 		if err := os.MkdirAll(d, 0o755); err != nil {
@@ -46,11 +45,7 @@ func genFrameworks(opts schema.Options) error {
 	if err := renderTemplateFile("cmd/cfgnode.go.tmpl", filepath.Join(projectDir, "cmd", "cfgnode.go"), data); err != nil {
 		return err
 	}
-
-	if err := renderTemplateFile("cmd/interface.go.tmpl", filepath.Join(projectDir, pkg, pkg+".go"), data); err != nil {
-		return err
-	}
-
+	// generate config files
 	if err := writeRawFile("cmd/config.yaml", filepath.Join(projectDir, "cmd", "config.yaml")); err != nil {
 		return err
 	}
@@ -64,6 +59,12 @@ func genFrameworks(opts schema.Options) error {
 		return err
 	}
 
+	// default vmm
+	// if err := renderTemplateFile("cmd/vmm.go.tmpl", filepath.Join(projectDir, pkg, pkg+".go"), data); err != nil {
+	// 	return err
+	// }
+
+	// copy mod files
 	outModDir := filepath.Join(projectDir, "cmd", "mod")
 	if err := os.MkdirAll(outModDir, 0o755); err != nil {
 		return err

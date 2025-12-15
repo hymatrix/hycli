@@ -3,13 +3,12 @@ package {{ .Package }}
 import (
 	"github.com/hymatrix/hymx/common"
 	vmmSchema "github.com/hymatrix/hymx/vmm/schema"
-	goarSchema "github.com/permadao/goar/schema"
 )
 
 var log = common.NewLog("{{ .Package }}")
 
 func Spawn(env vmmSchema.Env) (vm vmmSchema.Vm, err error) {
-	vmd, err := New(env, env.Process.Scheduler, env.Process.Tags)
+	vmd, err := New(env)
 	if err != nil {
 		return
 	}
@@ -25,7 +24,7 @@ type {{ capitalize .Package }} struct {
 	// Insert your code here
 }
 
-func New(env vmmSchema.Env, nodeAddr string, tags []goarSchema.Tag) (*{{ capitalize .Package }}, error) {
+func New(env vmmSchema.Env) (*{{ capitalize .Package }}, error) {
 	return &{{ capitalize .Package }}{
 		pid: env.Meta.Pid,
 		Env: env,
