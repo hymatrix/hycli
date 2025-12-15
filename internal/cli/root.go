@@ -15,8 +15,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&outPath, "out", "o", ".", "Output base directory for the generated project")
 	// new
+	newCmd.Flags().StringVarP(&outPath, "out", "o", ".", "Output base directory for the generated project")
 	rootCmd.AddCommand(newCmd)
 	// vmm
 	vmmCmd.Flags().StringP("name", "n", "", "Name of the vmm")
@@ -28,7 +28,7 @@ func init() {
 	// module
 	moduleCmd.Flags().StringP("name", "n", "", "Name of the module")
 	moduleCmd.Flags().StringP("node-url", "u", "http://127.0.0.1:8080", "Node URL")
-	moduleCmd.Flags().StringP("private-key", "k", "", "Private key")
+	moduleCmd.Flags().StringP("private-key", "k", "", "Ethereum ECDSA secp256k1 private key hex (0x-prefixed)")
 	rootCmd.AddCommand(moduleCmd)
 	// run
 	rootCmd.AddCommand(runCmd)
