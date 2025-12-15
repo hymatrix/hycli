@@ -97,5 +97,6 @@
 - [x] Generate Module
 - [x] Run
 - [ ] Upload & Download Module from arweave
+- [ ] ENV support
 - [ ] Setup Redis environment
 
