@@ -96,5 +96,6 @@
 - [x] Create Vmm & Mount
 - [x] Generate Module
 - [x] Run
+- [ ] Upload & Download Module from arweave
 - [ ] Setup Redis environment
 
