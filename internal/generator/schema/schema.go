@@ -1,7 +1,8 @@
 package schema
 
 type Options struct {
-	OutputDir    string
+	Org          string
+	ProjectDir   string
 	Package      string
 	ModuleFormat string
 }

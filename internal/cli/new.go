@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"hycli/internal/generator"
-	genSchema "hycli/internal/generator/schema"
+	"github.com/hymatrix/hycli/internal/generator"
+	genSchema "github.com/hymatrix/hycli/internal/generator/schema"
 
 	"github.com/spf13/cobra"
 )
@@ -18,14 +18,14 @@ var newCmd = &cobra.Command{
 	Short: "Create a new Golang project",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("Enter the package name to create: ")
-		pkg, err := reader.ReadString('\n')
+		fmt.Print("Enter the organization name: ")
+		org, err := reader.ReadString('\n')
 		if err != nil {
 			return err
 		}
-		pkg = strings.TrimSpace(pkg)
-		if pkg == "" {
-			return fmt.Errorf("package name cannot be empty")
+		org = strings.TrimSpace(org)
+		if org == "" {
+			return fmt.Errorf("organization name cannot be empty")
 		}
 
 		base := outPath
@@ -33,11 +33,18 @@ var newCmd = &cobra.Command{
 			base = "."
 		}
 		projectDir := filepath.Join(base)
+		absProjectDir, err := filepath.Abs(projectDir)
+		if err != nil {
+			return err
+		}
+		fmt.Println("Project directory:", absProjectDir)
+		pkg := filepath.Base(absProjectDir)
 
 		fmt.Printf("Generating project in: %s\n", projectDir)
 		if err := generator.GenerateProject(genSchema.Options{
-			Package:   pkg,
-			OutputDir: projectDir,
+			Org:        org,
+			Package:    pkg,
+			ProjectDir: projectDir,
 		}); err != nil {
 			return err
 		}

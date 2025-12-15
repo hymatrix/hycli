@@ -1,14 +1,13 @@
 package main
 
 import (
-    "log"
+	"log"
 
-    "hycli/internal/cli"
+	"github.com/hymatrix/hycli/internal/cli"
 )
 
 func main() {
-    if err := cli.Execute(); err != nil {
-        log.Fatalf("error: %v", err)
-    }
+	if err := cli.Execute(); err != nil {
+		log.Fatalf("error: %v", err)
+	}
 }
-

@@ -1,4 +1,4 @@
-module hycli
+module github.com/hymatrix/hycli
 
 go 1.23.4
 
