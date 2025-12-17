@@ -3,10 +3,17 @@ BUILD_DIR := bin
 CMD := ./cmd/hycli
 GO := go
 
-.PHONY: build clean
+.PHONY: build clean install release
+
 build:
 	mkdir -p $(BUILD_DIR)
 	$(GO) build -o $(BUILD_DIR)/$(BINARY) $(CMD)
 
+install:
+	$(GO) install $(CMD)
+
+release:
+	goreleaser release --snapshot --clean
+
 clean:
-	rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR) dist

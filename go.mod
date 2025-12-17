@@ -9,7 +9,6 @@ require (
 	github.com/hymatrix/hymx v0.4.3
 	github.com/permadao/goar v1.1.1
 	github.com/spf13/cobra v1.10.2
-	github.com/stretchr/testify v1.11.1
 )
 
 require (
@@ -24,7 +23,6 @@ require (
 	github.com/consensys/gnark-crypto v0.14.0 // indirect
 	github.com/crate-crypto/go-ipa v0.0.0-20240724233137-53bbb0ceb27a // indirect
 	github.com/crate-crypto/go-kzg-4844 v1.1.0 // indirect
-	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.3.0 // indirect
 	github.com/ethereum/c-kzg-4844 v1.0.3 // indirect
 	github.com/ethereum/go-ethereum v1.14.11 // indirect
@@ -55,7 +53,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/panjf2000/ants/v2 v2.10.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
-	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/supranational/blst v0.3.13 // indirect
