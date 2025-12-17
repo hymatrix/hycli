@@ -8,25 +8,38 @@
 - Or use `go` directly:
   - `go build -o bin/hycli ./cmd/hycli`
 
+## Install
+- From local source:
+  - `go install ./cmd/hycli`
+- From GitHub with version:
+  - `go install github.com/hymatrix/hycli/cmd/hycli@v0.0.1`
+  or
+  - `go install github.com/hymatrix/hycli/cmd/hycli@latest`
+- Ensure `$(go env GOPATH)/bin` (or `GOBIN`) is in your `PATH`.
+
 ## Usage
 - Basic:
-  - `./hycli new`
-  - `./hycli vmm --name <vmm> --format <format>`
-  - `./hycli mount --name <vmm>`
-  - `./hycli module --name <module> [-u <nodeURL>] [-k <privateKey>]`
-  - `./hycli run`
+  - `hycli new -m <goModule> [-o <outDir>]`
+  - `hycli vmm --name <vmm> --format <format>`
+  - `hycli mount --name <vmm>`
+  - `hycli module --name <module> [-u <nodeURL>] [-k <privateKey>]`
+  - `hycli run`
+- Version:
+  - `hycli -v` or `hycli --version`
+- If using local build without install:
+  - `./bin/hycli ...`
 - Specify output directory:
-  - `./hycli new -o ./_sandbox`
-- The command prompts for a package name and generates a scaffolded Go project under the specified base directory.
+  - `hycli new -m github.com/<user>/<pkg> -o ./_sandbox`
+- The command generates a scaffolded Go project under the specified base directory; package name is derived from the output directory name, and the Go module path is set via `-m`.
 
 ### Command: new
 - Description: Create a new Golang project scaffold for hymx Node.
 - Flags:
   - `--out`, `-o`: Output base directory. Default: `.`.
+  - `--module`, `-m`: Go module name (e.g., `github.com/hymatrix/hycli-example`). Required.
 - Flow:
-  - Run: `./bin/hycli new -o ./_sandbox`
-  - Input: package name (e.g., `myproj`)
-  - The tool initializes `go.mod` and runs `go mod tidy` inside the generated project.
+  - Run: `hycli new -m github.com/<user>/<pkg> -o ./_sandbox`
+  - The tool initializes `go.mod` using the provided module and runs `go mod tidy` inside the generated project.
 
 ### Command: vmm
 - Description: Manage or scaffold a VM module, and auto-mount it into `cmd/main.go`.
@@ -100,4 +113,3 @@
 - [ ] ENV support
 - [ ] hymx sdk support
 - [ ] Setup Redis environment
-
