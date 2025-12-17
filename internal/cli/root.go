@@ -1,9 +1,6 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +8,7 @@ var rootCmd = &cobra.Command{
 	Use:     "hycli",
 	Short:   "Hymx project scaffolding and management CLI",
 	Long:    "Command-line tool to generate Hymx project structure, manage modules, and run the sample project.",
-	Version: "v0.0.1",
+	Version: Version,
 }
 
 func init() {
@@ -33,20 +30,9 @@ func init() {
 	rootCmd.AddCommand(moduleCmd)
 	// run
 	rootCmd.AddCommand(runCmd)
-
 	// version
-	rootCmd.PersistentFlags().BoolP("version", "v", false, "Print version information")
-	rootCmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
-		show, err := cmd.Flags().GetBool("version")
-		if err != nil {
-			return err
-		}
-		if show {
-			fmt.Println(rootCmd.Version)
-			os.Exit(0)
-		}
-		return nil
-	}
+	rootCmd.AddCommand(versionCmd)
+	rootCmd.SetVersionTemplate(versionBanner())
 }
 
 func Execute() error { return rootCmd.Execute() }
