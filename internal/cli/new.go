@@ -36,12 +36,13 @@ var newCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Printf("Generating project in: %s\n", projectDir)
-		fmt.Println("Project directory:", absProjectDir)
+		projectDir = absProjectDir
+
+		fmt.Println("Project directory:", projectDir)
 		fmt.Printf("Go Module: %s\n", module)
 
 		// package name
-		pkg := filepath.Base(absProjectDir)
+		pkg := filepath.Base(projectDir)
 
 		// generate project
 		if err := generator.GenerateProject(genSchema.Options{
