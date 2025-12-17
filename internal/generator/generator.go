@@ -9,7 +9,7 @@ import (
 )
 
 func GenerateProject(opts schema.Options) error {
-	pkg := opts.Package
+	// pkg := opts.Package
 	projectDir := opts.ProjectDir
 	if err := os.MkdirAll(projectDir, 0o755); err != nil {
 		return err
@@ -21,7 +21,11 @@ func GenerateProject(opts schema.Options) error {
 	}
 
 	// go init & tidy
-	goModule := fmt.Sprintf("github.com/%s/%s", opts.Org, pkg)
+	goModule := opts.GoModule
+	if goModule == "" {
+		return fmt.Errorf("go module cannot be empty")
+	}
+
 	if err := runGoInitAndTidy(filepath.Join(projectDir), goModule); err != nil {
 		return err
 	}

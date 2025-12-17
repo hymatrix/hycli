@@ -10,18 +10,30 @@ import (
 )
 
 func genFrameworks(opts schema.Options) error {
-	pkg := opts.Package
+	// get project dir, must be abs path
 	projectDir := opts.ProjectDir
-
-	dirs := []string{
-		filepath.Join(projectDir, "cmd"),
+	absProjectDir, err := filepath.Abs(projectDir)
+	if err != nil {
+		return err
 	}
-	for _, d := range dirs {
-		if err := os.MkdirAll(d, 0o755); err != nil {
-			return err
-		}
+	projectDir = absProjectDir
+	err = os.MkdirAll(projectDir, 0o755)
+	if err != nil {
+		return err
 	}
 
+	// get package name
+	pkg := opts.Package
+	if pkg == "" {
+		pkg = filepath.Base(projectDir)
+	}
+
+	// create cmd dir
+	if err := os.MkdirAll(filepath.Join(projectDir, "cmd"), 0o755); err != nil {
+		return err
+	}
+
+	// set tmpl data
 	data := schema.Options{Package: pkg}
 
 	if err := renderTemplateFile("cmd/main.go.tmpl", filepath.Join(projectDir, "cmd", "main.go"), data); err != nil {

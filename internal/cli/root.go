@@ -1,12 +1,6 @@
 package cli
 
-import (
-	"github.com/spf13/cobra"
-)
-
-var (
-	outPath string
-)
+import "github.com/spf13/cobra"
 
 var rootCmd = &cobra.Command{
 	Use:   "hycli",
@@ -16,7 +10,8 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	// new
-	newCmd.Flags().StringVarP(&outPath, "out", "o", ".", "Output base directory for the generated project")
+	newCmd.Flags().StringP("out", "o", ".", "Output base directory for the generated project")
+	newCmd.Flags().StringP("module", "m", "", "Go module name (e.g. github.com/hymatrix/hycli)")
 	rootCmd.AddCommand(newCmd)
 	// vmm
 	vmmCmd.Flags().StringP("name", "n", "", "Name of the vmm")

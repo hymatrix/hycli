@@ -13,6 +13,7 @@ var vmmCmd = &cobra.Command{
 	Use:   "vmm",
 	Short: "Manage or scaffold a VM module",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		// --name / -n
 		name, err := cmd.Flags().GetString("name")
 		if err != nil {
 			return err
@@ -22,6 +23,7 @@ var vmmCmd = &cobra.Command{
 		}
 		fmt.Println("vmm name:", name)
 
+		// --format / -f
 		format, err := cmd.Flags().GetString("format")
 		if err != nil {
 			return err
@@ -31,6 +33,7 @@ var vmmCmd = &cobra.Command{
 		}
 		fmt.Println("format:", format)
 
+		// get project directory
 		projectDir, err := filepath.Abs(".")
 		if err != nil {
 			return err
