@@ -19,6 +19,9 @@ var newCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		if module == "" {
+			return fmt.Errorf("module name is required")
+		}
 
 		// --out / -o
 		outPath, err := cmd.Flags().GetString("out")
