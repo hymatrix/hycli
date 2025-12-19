@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"path"
 	"path/filepath"
 
 	"github.com/hymatrix/hycli/internal/generator"
@@ -33,8 +34,10 @@ var newCmd = &cobra.Command{
 			base = "."
 		}
 
+		projectName := path.Base(module)
+
 		// get project directory, absolute path
-		projectDir := filepath.Join(base)
+		projectDir := filepath.Join(base, projectName)
 		absProjectDir, err := filepath.Abs(projectDir)
 		if err != nil {
 			return err
