@@ -16,6 +16,9 @@ func init() {
 	newCmd.Flags().StringP("out", "o", ".", "Output base directory for the generated project")
 	newCmd.Flags().StringP("module", "m", "", "Go module name (e.g. github.com/hymatrix/hycli)")
 	rootCmd.AddCommand(newCmd)
+	// download
+	getCmd.Flags().StringP("package", "p", "", "Go module path of the VMM package")
+	rootCmd.AddCommand(getCmd)
 	// vmm
 	vmmCmd.Flags().StringP("name", "n", "", "Name of the vmm")
 	vmmCmd.Flags().StringP("format", "f", "", "Module format of the vmm")

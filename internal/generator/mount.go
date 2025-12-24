@@ -10,6 +10,15 @@ import (
 	"github.com/hymatrix/hycli/internal/generator/schema"
 )
 
+func Mount(opts schema.Options) error {
+	goModule, err := getGoModule(opts.ProjectDir)
+	if err != nil {
+		return err
+	}
+	opts.GoModule = goModule
+	return mount(&opts)
+}
+
 func mount(opts *schema.Options) error {
 	projectDir := opts.ProjectDir
 	vmm := opts.VmmName
