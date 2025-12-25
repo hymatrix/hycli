@@ -13,6 +13,9 @@ install:
 	$(GO) install $(CMD)
 
 release:
+	goreleaser release --clean
+
+snapshot:
 	goreleaser release --snapshot --clean
 
 clean:
