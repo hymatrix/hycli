@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os/exec"
 	"path"
-	"path/filepath"
 	"strings"
 
 	"github.com/hymatrix/hycli/internal/generator/schema"
@@ -21,29 +20,35 @@ func Get(opts schema.Options) error {
 	if projectDir == "" || pkg == "" {
 		return fmt.Errorf("invalid get options")
 	}
-	basePath := strings.SplitN(pkg, "@", 2)[0]
-	name := path.Base(basePath)
-
 	if err := runCmd(projectDir, "go", "get", pkg); err != nil {
 		return err
 	}
 
-	meta, err := ListModule(projectDir, basePath)
-	if err != nil {
-		return err
-	}
-	if meta.Dir == "" {
-		return fmt.Errorf("module directory not found for %s", pkg)
-	}
+	// remove version info
+	// "github.com/org/packagename/vmm_name@v0.0.1" --> "github.com/org/packagename/vmm_name"
+	basePath := strings.SplitN(pkg, "@", 2)[0]
+	// get packagename
+	name := path.Base(basePath)
+	// get module
+	goModule := path.Dir(basePath)
 
-	outDir := filepath.Join(projectDir, name)
-	if err := copyDir(meta.Dir, outDir); err != nil {
-		return err
-	}
+	// meta, err := ListModule(projectDir, basePath)
+	// if err != nil {
+	// 	return err
+	// }
+	// if meta.Dir == "" {
+	// 	return fmt.Errorf("module directory not found for %s", pkg)
+	// }
 
-	return Mount(schema.Options{
+	// outDir := filepath.Join(projectDir, name)
+	// if err := copyDir(meta.Dir, outDir); err != nil {
+	// 	return err
+	// }
+
+	return MountFromGoPath(schema.Options{
 		ProjectDir: projectDir,
 		VmmName:    name,
+		GoModule:   goModule,
 	})
 }
 

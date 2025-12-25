@@ -19,6 +19,10 @@ func Mount(opts schema.Options) error {
 	return mount(&opts)
 }
 
+func MountFromGoPath(opts schema.Options) error {
+	return mount(&opts)
+}
+
 func mount(opts *schema.Options) error {
 	projectDir := opts.ProjectDir
 	vmm := opts.VmmName
@@ -55,6 +59,8 @@ func mount(opts *schema.Options) error {
 		closeIdx += importStart
 
 		// construct new import lines
+		fmt.Println("go module: ", goModule)
+		fmt.Println("vmm: ", vmm)
 		newLines := []string{
 			fmt.Sprintf("\t%s \"%s/%s\"\n", vmm, goModule, vmm),
 			fmt.Sprintf("\t%sSchema \"%s/%s/schema\"\n", vmm, goModule, vmm),
@@ -94,5 +100,10 @@ func mount(opts *schema.Options) error {
 		}
 	}
 
-	return os.WriteFile(mainPath, []byte(updated), 0o644)
+	err = os.WriteFile(mainPath, []byte(updated), 0o644)
+	if err != nil {
+		return err
+	}
+
+	return runCmd(projectDir, "go", "mod", "tidy")
 }
